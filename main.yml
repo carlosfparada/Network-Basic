@@ -4,6 +4,8 @@
   gather_facts: false
   connection: local
   tasks:
+    - include_vars: default/main.yml
+
     - include_tasks: tasks/parse_facts.yml
       tags: [facts, inventory]
 
