@@ -89,7 +89,7 @@
         device_role: "{{ net_device_role }}"
         local_context_data: "{{ _facts.ansible_facts.ansible_network_resources }}"
         comments: "added by Ansible"
-  - name: Push interface inventory data to netbox
+  - name: Push interfaces inventory data to netbox
     netbox.netbox.netbox_device_interface:
       netbox_url: "{{ net_netbox_url }}"
       netbox_token: "{{ net_netbox_token }}"
@@ -97,5 +97,6 @@
       data: 
         device: "{{ inventory_hostname }}"
         name: "{{ item.name }}"
-    loop: "{{ _facts.ansible_facts.interfaces }}"
+      state: present
+    loop: "{{ _facts.ansible_facts.ansible_network_resources.interfaces }}"
   tags: netbox
