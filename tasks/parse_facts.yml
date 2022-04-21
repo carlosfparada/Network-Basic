@@ -107,7 +107,9 @@
       netbox_token: "{{ net_netbox_token }}"
       validate_certs: no
       data: 
-        interface: "{{ inventory_hostname }} - {{ item.name }}"
+        interface:
+          device: "{{ inventory_hostname }}"
+          name: "{{ item.name }}"
         family: 4
         address: "{{ item.ipv4[0].address }}"
         description: "{{ item.ipv4[0].address }} description"
