@@ -15,10 +15,12 @@
         - "acls" 
     register: _ios_facts
     become: true
-  - debug:
+  - name: Debug IOS facts
+    debug:
       var: _ios_facts
       verbosity: 2
-  - set_fact:
+  - name: Set IOS facts
+    set_fact:
       _facts: "{{ _ios_facts }}"
   when: ansible_network_os == 'ios'
   tags: facts
@@ -38,10 +40,12 @@
         - "acls" 
     register: _nxos_facts
     become: true
-  - debug:
+  - name: Debug NXOS facts
+    debug:
       var: _nxos_facts
       verbosity: 2
-  - set_fact:
+  - Set NXOS facts
+    set_fact:
       _facts: "{{ _nxos_facts }}"
   when: ansible_network_os == 'nxos'
   tags: facts
@@ -56,10 +60,12 @@
         - all
     register: _eos_facts
     become: true
-  - debug:
+  - name: Debug EOS facts
+    debug:
       var: _eos_facts
       verbosity: 2
-  - set_fact:
+  - name: Set EOS facts
+    set_fact:
       _facts: "{{ _eos_facts }}"
   when: ansible_network_os == 'eos'
   tags: facts

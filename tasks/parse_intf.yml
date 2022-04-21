@@ -2,13 +2,15 @@
 
 - name: CAPTURE INTERFACE BLOCK
   block:
-  - name: capture and parse 'show interface'
+  - name: Capture and parse 'show interface'
     ansible.utils.cli_parse:
       command: "show interfaces"
       parser:
-        name: ansible.netcommon.ntc_templates
+        #name: ansible.netcommon.ntc_templates
+        name: ansible.netcommon.textfsm
     register: _int_result
-  - debug:
+  - name: Debug 'show interfaces'
+    debug:
       var: _int_result.parsed
       verbosity: 2
   tags: [parse_intf]
