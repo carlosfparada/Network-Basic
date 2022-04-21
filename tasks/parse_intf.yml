@@ -2,9 +2,9 @@
 
 - name: CAPTURE INTERFACE BLOCK
   block:
-  - name: Capture and parse 'show interface'
+  - name: Capture and parse 'show interfaces'
     ansible.utils.cli_parse:
-      command: "show interfaces"
+      command: "show interface"
       parser:
         name: ansible.netcommon.ntc_templates
     register: _int_result
@@ -12,6 +12,7 @@
     debug:
       var: _int_result.parsed
       verbosity: 2
+
   tags: [parse_intf]
 
 - name: NETBOX BLOCK
