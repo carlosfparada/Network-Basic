@@ -109,9 +109,9 @@
       data: 
         interface: "{{ inventory_hostname }} - {{ item.name }}"
         family: 4
-        address: "{{ item.ipv4.address }}"
-        description: "{{ item.ipv4.address }} description"
+        address: "{{ item.ipv4[0].address }}"
+        description: "{{ item.ipv4[0].address }} description"
       state: present
     loop: "{{ _facts.ansible_facts.ansible_network_resources.l3_interfaces }}"
-    when: item.ipv4 is defined and item.ipv4.address is defined
+    when: item.ipv4 is defined and item.ipv4[0].address is defined
   tags: netbox
