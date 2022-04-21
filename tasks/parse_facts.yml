@@ -23,6 +23,29 @@
   when: ansible_network_os == 'ios'
   tags: [facts, inventory]
 
+- name: NXOS block
+  block:
+  - name: NXOS facts
+    cisco.nxos.nxos_facts:
+      gather_subset:
+        - hardware
+      gather_network_resources:
+        - "interfaces"
+        - "l2_interfaces"
+        - "l3_interfaces"
+        - "acl_interfaces"
+        - "static_routes" 
+        - "acls" 
+    register: _nxos_facts
+    become: true
+  - debug:
+      var: _nxos_facts
+      verbosity: 2
+  - set_fact:
+      _facts: "{{ _nxos_facts }}"
+  when: ansible_network_os == 'nxos'
+  tags: [facts, inventory]
+
 - name: EOS block
   block:
   - name: EOS facts
