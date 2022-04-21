@@ -1,6 +1,6 @@
 ---
 
-- name: IOS block
+- name: IOS gatthering facts
   block:
   - name: IOS facts
     cisco.ios.ios_facts:
@@ -23,7 +23,7 @@
   when: ansible_network_os == 'ios'
   tags: [facts, inventory]
 
-- name: NXOS block
+- name: NXOS gatthering facts
   block:
   - name: NXOS facts
     cisco.nxos.nxos_facts:
@@ -46,7 +46,7 @@
   when: ansible_network_os == 'nxos'
   tags: [facts, inventory]
 
-- name: EOS block
+- name: EOS gatthering facts
   block:
   - name: EOS facts
     arista.eos.eos_facts:
@@ -64,7 +64,7 @@
   when: ansible_network_os == 'eos'
   tags: [facts, inventory]
 
-- name: NETBOX block
+- name: NETBOX Push Inventory
   block:
   - name: make sure device type is configured
     netbox.netbox.netbox_device_type:
