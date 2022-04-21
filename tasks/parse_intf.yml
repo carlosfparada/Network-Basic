@@ -15,7 +15,7 @@
 
 - name: NETBOX BLOCK
   block:
-  - name: push interface data to netbox
+  - name: Push interface data to netbox
     netbox.netbox.netbox_device_interface:
       netbox_url: "{{ net_netbox_url }}"
       netbox_token: "{{ net_netbox_token }}"
@@ -31,7 +31,7 @@
     loop: "{{ _int_result.parsed }}"
     loop_control:
       label: "{{ item.interface }}"
-  - name: push IP addresses to device interfaces
+  - name: Push IP addresses to device interfaces
     netbox.netbox.netbox_ip_address:
       netbox_url: "{{ net_netbox_url }}"
       netbox_token: "{{ net_netbox_token }}"
