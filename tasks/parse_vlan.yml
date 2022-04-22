@@ -49,9 +49,7 @@
         device: "{{ inventory_hostname }}"
         name: "{{ item.name }}"
         mode: "access"
-        type: "Virtual"
         untagged_vlan: "{{ item.access.vlan | default(omit) }}"
-        #description: "VLAN untagged {{ item.name }} - {{ item.access.vlan | default(omit) }}"
     loop: "{{ _intf_result.ansible_facts.ansible_network_resources.l2_interfaces }}"
     loop_control:
       label: "{{ item.name }}"
