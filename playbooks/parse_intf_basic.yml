@@ -1,0 +1,11 @@
+---
+- name: Network Basic Demos
+  hosts: all
+  gather_facts: false
+  connection: local
+  tasks:
+    - include_vars: defaults/main.yml
+
+    - include_tasks: tasks/push_intf_basic.yml
+      tags: [push_intf_basic, push_intf] 
+

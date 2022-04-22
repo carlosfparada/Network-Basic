@@ -13,7 +13,7 @@
       body_format: json
     register: _dcim_device
     when: device_id == '' or device_id == 0
-  - name: "set netbox device ID {{ _dcim_device.json.results[0].id }}"
+  - name: "Set netbox device ID {{ _dcim_device.json.results[0].id }}"
     set_fact:
       device_id: "{{ _dcim_device.json.results[0].id }}"
     when: device_id == '' or device_id == 0 and _dcim_device.json.results is defined and _dcim_device.json.results | length > 0
@@ -27,7 +27,8 @@
         Authorization: "Token {{ net_netbox_token }}"
       body_format: json
     register: _intf_info
-  - set_fact:
+  - name: "Set netbox interfaces"
+    set_fact:
       net_intfs: "{{ net_intfs + [{'name':item.name, 'description':item.description, 'enabled':item.enabled}] }}"
     loop: "{{ _intf_info.json.results }}"
     loop_control:
