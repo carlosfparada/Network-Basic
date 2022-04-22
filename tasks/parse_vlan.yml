@@ -50,10 +50,10 @@
         name: "{{ item.name }}"
         mode: "access"
         untagged_vlan: "{{ item.access.vlan | default(omit) }}"
-        description: "VLAN untagged {{ item.value.name }} - {{ item.access.vlan | default(omit) }}"
+        description: "VLAN untagged {{ item.value.name }} - {{ item.access.vlan }}"
     loop: "{{ _intf_result.ansible_facts.ansible_network_resources.l2_interfaces }}"
     loop_control:
       label: "{{ item.name }}"
-    when: item.access is defined
+    when: item.access is defined and 
   when: inventory_hostname in groups['switch']
   tags: [netbox]
