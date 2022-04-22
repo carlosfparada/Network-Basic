@@ -41,19 +41,19 @@
 
 - name: PUSH TO DEVICE BLOCK
   block:
-  - name: Cisco IOS interface basics
+  - name: Push to device Cisco IOS interface basics
     cisco.ios.ios_interfaces:
       config: "{{ net_intfs }}"
       state: replaced
     when: ansible_network_os == 'ios' and net_intf_filter == ""
     become: yes
-  - name: Cisco NXOS interface basics
+  - name: Push to device Cisco NXOS interface basics
     cisco.nxos.nxos_interfaces:
       config: "{{ net_intfs }}"
       state: replaced
     when: ansible_network_os == 'nxos' and net_intf_filter == ""
     become: yes
-  - name: Arista EOS interface basics
+  - name: Push to device Arista EOS interface basics
     arista.eos.eos_interfaces:
       config: "{{ net_intfs }}"
       state: replaced
