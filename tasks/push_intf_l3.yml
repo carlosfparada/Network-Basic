@@ -60,12 +60,14 @@
         Authorization: "Token {{ net_netbox_token }}"
       body_format: json
     register: _ipam_info
-  - set_fact:
+  - name: Set network l3 facts 
+    set_fact:
       net_l3_intfs: "{{ net_l3_intfs + [{'name': item.assigned_object.name, 'ipv4':[{'address':item.address}]} ] }}"
     loop: "{{ _ipam_info.json.results }}"
     loop_control:
       label: "{{ item.assigned_object.name }} ==> {{ item.address }}"
-  - debug:
+  - name: Debug network l3 facts 
+    debug:
       var: net_l3_intfs
       verbosity: 2
   tags: [netbox]
@@ -83,6 +85,22 @@
     config: "{{ net_l3_intfs }}"
     state: merged
   when: ansible_network_os == 'ios' and net_intf_filter != ""
+  become: yes
+  tags: [push_intf_l3]
+
+- name: Cisco NXOS L3 network interfaces - replaced
+  cisco.nxos.nxos_l3_interfaces:
+    config: "{{ net_l3_intfs }}"
+    state: replaced
+  when: ansible_network_os == 'nxos' and net_intf_filter == ""
+  become: yes
+  tags: [push_intf_l3]
+
+- name: Cisco NXOS L3 network interfaces - merged
+  cisco.nxos.nxos_l3_interfaces:
+    config: "{{ net_l3_intfs }}"
+    state: merged
+  when: ansible_network_os == 'nxos' and net_intf_filter != ""
   become: yes
   tags: [push_intf_l3]
 
