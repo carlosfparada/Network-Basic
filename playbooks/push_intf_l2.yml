@@ -8,4 +8,4 @@
 
     - include_tasks: ../tasks/push_intf_l2.yml
       tags: [push_intf_l2, push_intf]
-      when: inventory_hostname in groups['switch']
+      #when: inventory_hostname in groups['switch']
