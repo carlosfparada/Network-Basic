@@ -54,6 +54,6 @@
     loop: "{{ _intf_result.ansible_facts.ansible_network_resources.l2_interfaces }}"
     loop_control:
       label: "{{ item.name }}"
-    when: item.access is defined and 
+    when: item.access is defined
   when: inventory_hostname in groups['switch']
   tags: [netbox]
