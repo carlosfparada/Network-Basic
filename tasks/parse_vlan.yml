@@ -35,11 +35,11 @@
         name: "{{ item.value.name }}"
         vid: "{{ item.key }}"
         site: "{{ net_site }}"
+        description: "VLAN {{ item.value.name }} - {{ item.key }}" 
     loop: "{{ _vlan_result.parsed.vlans | dict2items }}"
     loop_control:
       label: "{{ item.key }} ==> {{ item.value.name }}"
     when: _vlan_result.parsed.vlans is defined
-
   - name: Push intf access VLAN to netbox
     netbox.netbox.netbox_device_interface:
       netbox_url: "{{ net_netbox_url }}"
@@ -50,6 +50,7 @@
         name: "{{ item.name }}"
         mode: "access"
         untagged_vlan: "{{ item.access.vlan | default(omit) }}"
+        description: "VLAN untagged {{ item.value.name }} - {{ item.access.vlan }}"
     loop: "{{ _intf_result.ansible_facts.ansible_network_resources.l2_interfaces }}"
     loop_control:
       label: "{{ item.name }}"
