@@ -101,3 +101,22 @@
   become: true
   tags: [push_intf_l2, push_intf]
 
+- name: Push L2 interface template to EOS L2 switch
+  arista.eos.eos_config:
+    src: "tag_{{ item.tags[0].name }}.j2"
+    before: "default interface {{ item.name }}"
+  when: item.tags is defined and item.tags|length > 0
+  loop: "{{ _intf_info.json.results }}"
+  loop_control:
+    label: "{{ item.name }}"
+  tags: [netbox]
+
+- name: Push L2 interface config BLOCK
+  block:
+  - name: push L2 interface to EOS
+    arista.eos.eos_l2_interfaces:
+      config: "{{ net_intfs }}"
+      state: replaced
+    when: ansible_network_os == 'eos' and net_intfs | length > 0
+  become: true
+  tags: [push_intf_l2, push_intf]
