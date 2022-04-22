@@ -44,7 +44,7 @@
     debug:
       var: _nxos_facts
       verbosity: 2
-  - Set NXOS facts
+  - name: Set NXOS facts
     set_fact:
       _facts: "{{ _nxos_facts }}"
   when: ansible_network_os == 'nxos'
