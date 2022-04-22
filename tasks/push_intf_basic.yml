@@ -27,13 +27,14 @@
         Authorization: "Token {{ net_netbox_token }}"
       body_format: json
     register: _intf_info
-  - name: "Set netbox interfaces"
+  - name: "Set facts netbox interfaces"
     set_fact:
       net_intfs: "{{ net_intfs + [{'name':item.name, 'description':item.description, 'enabled':item.enabled}] }}"
     loop: "{{ _intf_info.json.results }}"
     loop_control:
       label: "{{ item.name }}"
-  - debug:
+  - name: Debug netbox interfaces
+    debug:
       var: net_intfs
       verbosity: 2
   tags: [netbox]
@@ -45,6 +46,12 @@
       config: "{{ net_intfs }}"
       state: replaced
     when: ansible_network_os == 'ios' and net_intf_filter == ""
+    become: yes
+  - name: Cisco NXOS interface basics
+    arista.nxos.nxos_interfaces:
+      config: "{{ net_intfs }}"
+      state: replaced
+    when: ansible_network_os == 'nxos' and net_intf_filter == ""
     become: yes
   - name: Arista EOS interface basics
     arista.eos.eos_interfaces:

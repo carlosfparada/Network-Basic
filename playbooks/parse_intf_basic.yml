@@ -8,4 +8,3 @@
 
     - include_tasks: ../tasks/push_intf_basic.yml
       tags: [push_intf_basic, push_intf] 
-
