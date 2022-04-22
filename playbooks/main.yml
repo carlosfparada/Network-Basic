@@ -26,4 +26,4 @@
 
     - include_tasks: ../tasks/push_intf_l2_survey.yml
       tags: [l2survey]
-      #when: inventory_hostname in groups['switch']
+      when: inventory_hostname in groups['switch']
