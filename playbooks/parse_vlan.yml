@@ -1,0 +1,11 @@
+---
+- name: Network Basic Demos
+  hosts: all
+  gather_facts: false
+  connection: local
+  tasks:
+    - include_vars: defaults/main.yml
+
+    - include_tasks: tasks/parse_facts.yml
+      tags: [facts, netbox]
+
