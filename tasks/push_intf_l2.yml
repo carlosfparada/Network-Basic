@@ -47,20 +47,21 @@
   #     verbosity: 2
   #   loop: "{{ _intf_info.json.results }}" 
   #   when: item.tags is defined and item.tags|length > 0
-  - name: set variable for RM for all access ports
+  - name: Set variable for RM for all access ports
     set_fact:
       net_intfs: "{{ net_intfs + [{'name':item.name, 'mode':'access', 'access':{'vlan': item.untagged_vlan.vid} }] }}"
     loop: "{{ _intf_info.json.results }}"
     loop_control:
       label: "{{ item.name }} ==> vlan: {{ item.untagged_vlan.vid | default('skipped') }}"
     when: item.mode is defined and item.mode.value is defined and item.mode.value == 'access'
-      and (net_intf_filter == "" or net_intf_filter == item.name )
-  - debug:
+      and (net_intf_filter == "" or net_intf_filter == item.name)
+  - name: Debug net interfaces
+    debug:
       var: net_intfs
       verbosity: 2
   tags: [netbox]
 
-- name: push L2 interface template to IOS L2 switch
+- name: Push L2 interface template to IOS L2 switch
   cisco.ios.ios_config:
     src: "tag_{{ item.tags[0].name }}.j2"
     before: "default interface {{ item.name }}"
@@ -70,13 +71,33 @@
     label: "{{ item.name }}"
   tags: [netbox]
 
-- name: PUSH L2 interface config BLOCK
+- name: Push L2 interface config BLOCK
   block:
   - name: push L2 interface to IOS
     cisco.ios.ios_l2_interfaces:
       config: "{{ net_intfs }}"
       state: replaced
     when: ansible_network_os == 'ios' and net_intfs | length > 0
+  become: true
+  tags: [push_intf_l2, push_intf]
+
+- name: Push L2 interface template to NXOS L2 switch
+  cisco.nxos.nxos_config:
+    src: "tag_{{ item.tags[0].name }}.j2"
+    before: "default interface {{ item.name }}"
+  when: item.tags is defined and item.tags|length > 0
+  loop: "{{ _intf_info.json.results }}"
+  loop_control:
+    label: "{{ item.name }}"
+  tags: [netbox]
+
+- name: Push L2 interface config BLOCK
+  block:
+  - name: push L2 interface to NXOS
+    cisco.nxos.nxos_l2_interfaces:
+      config: "{{ net_intfs }}"
+      state: replaced
+    when: ansible_network_os == 'nxos' and net_intfs | length > 0
   become: true
   tags: [push_intf_l2, push_intf]
 

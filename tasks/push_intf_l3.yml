@@ -47,7 +47,8 @@
       body_format: json
     register: _dcim_device
     when: device_id == '' or device_id == 0
-  - set_fact:
+  - name: Set device facts
+    set_fact:
       device_id: "{{ _dcim_device.json.results[0].id }}"
     when: device_id == '' or device_id == 0 and _dcim_device.json.results is defined and _dcim_device.json.results | length > 0
   - name: GET netbox IPAM information
