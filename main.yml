@@ -14,7 +14,6 @@
 
     - include_tasks: tasks/parse_vlan.yml
       tags: [parse_vlan] 
-      when: inventory_hostname in groups['switch']
 
 #    - include_tasks: tasks/push_intf_basic.yml
 #      tags: [push_intf_basic, push_intf] 

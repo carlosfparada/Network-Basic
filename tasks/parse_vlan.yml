@@ -16,8 +16,9 @@
       parser:
         name: ansible.netcommon.pyats
     register: _vlan_result
-    when: ansible_network_os == 'ios'
-  - debug: 
+    when: ansible_network_os == 'ios' or ansible_network_os == 'nxos'
+  - name: Debug 'show vlan'
+    debug: 
       var: _vlan_result
       verbosity: 2
   when: inventory_hostname in groups['switch']
@@ -25,7 +26,7 @@
 
 - name: NETBOX BLOCK
   block:
-  - name: push VLAN database to netbox
+  - name: Push VLAN database to netbox
     netbox.netbox.netbox_vlan:
       netbox_url: "{{ net_netbox_url }}"
       netbox_token: "{{ net_netbox_token }}"
@@ -37,7 +38,9 @@
     loop: "{{ _vlan_result.parsed.vlans | dict2items }}"
     loop_control:
       label: "{{ item.key }} ==> {{ item.value.name }}"
-  - name: push intf access VLAN to netbox
+    when: _vlan_result.parsed.vlans is defined
+
+  - name: Push intf access VLAN to netbox
     netbox.netbox.netbox_device_interface:
       netbox_url: "{{ net_netbox_url }}"
       netbox_token: "{{ net_netbox_token }}"
