@@ -1,0 +1,11 @@
+---
+- name: Network Basic Demos
+  hosts: all
+  gather_facts: false
+  connection: local
+  tasks:
+    - include_vars: ../defaults/main.yml
+
+    - include_tasks: ../tasks/push_intf_l2.yml
+      tags: [push_intf_l2, push_intf]
+      when: inventory_hostname in groups['switch']
