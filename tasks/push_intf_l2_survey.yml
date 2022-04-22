@@ -35,7 +35,7 @@
       name: "{{ net_intf_filter }}"
       mode: "access"
       untagged_vlan:
-        vlan: "{{ net_vlan }}"
+        vid: "{{ net_vlan }}"
       tags:
        - "{{ net_l2_template }}"
     when: ansible_network_os == 'ios' and net_intfs | length > 0
