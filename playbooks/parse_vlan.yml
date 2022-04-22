@@ -6,5 +6,5 @@
   tasks:
     - include_vars: defaults/main.yml
 
-    - include_tasks: tasks/parse_vlan.yml
+    - include_tasks: ../tasks/parse_vlan.yml
       tags: [parse_vlan] 

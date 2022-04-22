@@ -6,6 +6,6 @@
   tasks:
     - include_vars: defaults/main.yml
 
-    - include_tasks: tasks/parse_facts.yml
+    - include_tasks: ../tasks/parse_facts.yml
       tags: [facts, netbox]
 

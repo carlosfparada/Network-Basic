@@ -6,25 +6,25 @@
   tasks:
     - include_vars: defaults/main.yml
 
-#    - include_tasks: tasks/parse_facts.yml
+#    - include_tasks: ../tasks/parse_facts.yml
 #      tags: [facts, netbox]
 
-#    - include_tasks: tasks/parse_intf.yml
+#    - include_tasks: ../tasks/parse_intf.yml
 #      tags: [parse_intf, netbox]
 
-#    - include_tasks: tasks/parse_vlan.yml
+#    - include_tasks: ../tasks/parse_vlan.yml
 #      tags: [parse_vlan] 
 
-    - include_tasks: tasks/push_intf_basic.yml
+    - include_tasks: ../tasks/push_intf_basic.yml
       tags: [push_intf_basic, push_intf] 
 
-#    - include_tasks: tasks/push_intf_l3.yml
+#    - include_tasks: ../tasks/push_intf_l3.yml
 #      tags: [push_intf_l3, push_intf] 
 
-#    - include_tasks: tasks/push_intf_l2.yml
+#    - include_tasks: ../tasks/push_intf_l2.yml
 #      tags: [push_intf_l2, push_intf]
 #      when: inventory_hostname in groups['switch']
 
-#    - include_tasks: tasks/push_intf_l2_survey.yml
+#    - include_tasks: ../tasks/push_intf_l2_survey.yml
 #      tags: [l2survey]
 #      when: inventory_hostname in groups['switch']

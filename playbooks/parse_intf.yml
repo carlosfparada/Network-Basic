@@ -6,5 +6,5 @@
   tasks:
     - include_vars: defaults/main.yml
 
-    - include_tasks: tasks/parse_intf.yml
+    - include_tasks: ../tasks/parse_intf.yml
       tags: [parse_intf, netbox]
