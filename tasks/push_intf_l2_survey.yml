@@ -38,5 +38,5 @@
         vid: "{{ net_vlan }} | default(omit)"
       tags:
        - "{{ net_l2_template }}"
-  when: (ansible_network_os == 'ios' or ansible_network_os == 'nxos') and net_intfs | length > 0 and net_vlan
+  when: (ansible_network_os == 'ios' or ansible_network_os == 'nxos') and net_intfs | length > 0
   tags: [netbox]
