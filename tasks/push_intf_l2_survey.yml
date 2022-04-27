@@ -21,7 +21,8 @@
     cisco.ios.ios_l2_interfaces:
       config: "{{ net_intfs }}"
       state: merged
-    when: ansible_network_os == 'ios' and net_intfs | length > 0
+    #when: ansible_network_os == 'ios' and net_intfs | length > 0
+    when: (ansible_network_os == 'ios' or ansible_network_os == 'nxos') and net_intfs | length > 0
   become: true
   tags: [l2survey]
 
@@ -38,5 +39,6 @@
         vid: "{{ net_vlan }}"
       tags:
        - "{{ net_l2_template }}"
-  when: ansible_network_os == 'ios' and net_intfs | length > 0
+  #when: ansible_network_os == 'ios' and net_intfs | length > 0
+  when: (ansible_network_os == 'ios' or ansible_network_os == 'nxos') and net_intfs | length > 0
   tags: [netbox]
