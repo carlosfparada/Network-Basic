@@ -26,11 +26,13 @@
   become: true
   tags: [l2survey]
 
-- name: debug
-  var: net_intfs
+- name: debug net_intfs
+  debug:
+    var: net_intfs
 
-- name: debug
-  var: net_vlan
+- name: debug net_vlan
+  debug: 
+    var: net_vlan
 
 - name: Sync config with Netbox
   netbox.netbox.netbox_device_interface:
