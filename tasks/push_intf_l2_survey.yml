@@ -40,5 +40,5 @@
       tags:
        - "{{ net_l2_template }}"
   #when: ansible_network_os == 'ios' and net_intfs | length > 0
-  when: (ansible_network_os == 'ios' or ansible_network_os == 'nxos') and net_intfs | length > 0
+  #when: (ansible_network_os == 'ios' or ansible_network_os == 'nxos') and net_intfs | length > 0
   tags: [netbox]
