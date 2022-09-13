@@ -1,5 +1,5 @@
 ---
-net_netbox_url: https://172.16.1.16
+net_netbox_url: https://172.16.1.60
 net_netbox_token: "0123456789abcdef0123456789abcdef01234567"
 
 net_site: 'hetzner'
