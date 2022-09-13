@@ -45,18 +45,18 @@
     cisco.ios.ios_interfaces:
       config: "{{ net_intfs }}"
       state: replaced
-    when: ansible_network_os == 'ios' and net_intf_filter == "" and net_intfs|lenght>0
+    when: ansible_network_os == 'ios' and net_intf_filter == "" and net_intfs|length>0
     become: yes
   - name: Push to device Cisco NXOS interface basics
     cisco.nxos.nxos_interfaces:
       config: "{{ net_intfs }}"
       state: replaced
-    when: ansible_network_os == 'nxos' and net_intf_filter == "" and net_intfs|lenght>0
+    when: ansible_network_os == 'nxos' and net_intf_filter == "" and net_intfs|length>0
     become: yes
   - name: Push to device Arista EOS interface basics
     arista.eos.eos_interfaces:
       config: "{{ net_intfs }}"
       state: replaced
-    when: ansible_network_os == 'eos' and net_intf_filter == "" and net_intfs|lenght>0
+    when: ansible_network_os == 'eos' and net_intf_filter == "" and net_intfs|length>0
     become: yes
   tags: [push_intf_basic]

@@ -101,7 +101,7 @@
   cisco.nxos.nxos_l3_interfaces:
     config: "{{ net_l3_intfs }}"
     state: merged
-  when: ansible_network_os == 'nxos' and net_intf_filter != "" and net_l3_intfs|lenght>0
+  when: ansible_network_os == 'nxos' and net_intf_filter != "" and net_l3_intfs|length>0
   become: yes
   tags: [push_intf_l3]
 
@@ -109,7 +109,7 @@
   arista.eos.eos_l3_interfaces:
     config: "{{ net_l3_intfs }}"
     state: replaced
-  when: ansible_network_os == 'eos' and net_intf_filter == "" and net_l3_intfs|lenght>0
+  when: ansible_network_os == 'eos' and net_intf_filter == "" and net_l3_intfs|length>0
   become: yes
   tags: [push_intf_l3]
 
@@ -117,6 +117,6 @@
   arista.eos.eos_l3_interfaces:
     config: "{{ net_l3_intfs }}"
     state: merged
-  when: ansible_network_os == 'eos' and net_intf_filter != "" and net_l3_intfs|lenght>0
+  when: ansible_network_os == 'eos' and net_intf_filter != "" and net_l3_intfs|length>0
   become: yes
   tags: [push_intf_l3]
