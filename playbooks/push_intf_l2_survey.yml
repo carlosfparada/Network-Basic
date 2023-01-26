@@ -1,6 +1,6 @@
 ---
 - name: Network Basic Demos
-  hosts: all
+  hosts: switch
   gather_facts: false
   connection: local
   tasks:
